@@ -1,2 +1,6 @@
 .DS_Store
 *.o
+*.in
+
+# test cases
+OS_PJ1_Test/
