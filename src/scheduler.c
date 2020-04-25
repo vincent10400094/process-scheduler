@@ -36,9 +36,8 @@ int main() {
     setCPU(getpid(), 0);
 
     /* assign scheduler */
-
     if (S == FIFO) {
-        
+        fifo(ps, N);
     } else if (S == RR) {
 
     } else if (S == SJF) {

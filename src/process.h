@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <sched.h>
 #include <errno.h>
+#include <stdbool.h>
 #include <sys/syscall.h>
 #include <sys/wait.h>
 
@@ -17,8 +18,11 @@ struct PCB {
     int r;              // ready time
     int t;              // execute time
     int i;              // i-th process
+    bool ready, running;
     pid_t pid;
 };
+
+#define UNIT_OF_TIME { volatile unsigned long i; for(i=0;i<1000000UL;i++); } 
 
 int cmp(const void *a, const void *b);
 

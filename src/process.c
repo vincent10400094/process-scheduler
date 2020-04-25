@@ -1,7 +1,5 @@
 #include "process.h"
 
-#define UNIT_OF_TIME { volatile unsigned long i; for (i=0;i<1000000UL;i++); }
-
 int cmp(const void *_a, const void *_b) {
     struct PCB *a = (struct PCB *) _a;
     struct PCB *b = (struct PCB *) _b;
@@ -59,9 +57,10 @@ void forkChild(struct PCB *p) {
     }
 
     /* parent */
+    setCPU(pid, 1);
+    setPriority(pid, 1); // lowest priority
     p->pid = pid;
-    setCPU(p->pid, 1);
-    setPriority(p->pid, 1); // lowest priority
+    
     printf("%s %d\n", p->name, p->pid);
 
 }

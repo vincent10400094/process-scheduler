@@ -2,5 +2,7 @@
 *.o
 *.in
 
+scheduler
+
 # test cases
 OS_PJ1_Test/
