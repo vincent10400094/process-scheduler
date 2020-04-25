@@ -8,6 +8,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sched.h>
+#include <errno.h>
 #include <sys/syscall.h>
 #include <sys/wait.h>
 
