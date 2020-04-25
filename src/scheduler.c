@@ -35,9 +35,17 @@ int main() {
     /* assign scheduler to cpu 0 */
     setCPU(getpid(), 0);
 
-    forkChild(&ps[0]);
-
     /* assign scheduler */
+
+    if (S == FIFO) {
+        
+    } else if (S == RR) {
+
+    } else if (S == SJF) {
+
+    } else if (S == PSJF) {
+
+    }
 
     fflush(stdout);
 

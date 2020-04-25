@@ -11,4 +11,9 @@
 #include "process.h"
 #include "scheduler.h"
 
+#include "fifo.h"
+#include "rr.h"
+#include "sjf.h"
+#include "psjf.h"
+
 #endif
