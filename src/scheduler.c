@@ -27,6 +27,7 @@ int main() {
     for (int i = 0; i < N; i++) {
         scanf("%s %d %d", ps[i].name, &ps[i].r, &ps[i].t);
         ps[i].i = i;
+        ps[i].ready = ps[i].running = false;
     }
 
     /* sort processes by ready time */
@@ -34,12 +35,13 @@ int main() {
 
     /* assign scheduler to cpu 0 */
     setCPU(getpid(), 0);
+    setPriority(getpid(), 99);
 
     /* assign scheduler */
     if (S == FIFO) {
         fifo(ps, N);
     } else if (S == RR) {
-
+        rr(ps, N);
     } else if (S == SJF) {
 
     } else if (S == PSJF) {
