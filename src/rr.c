@@ -9,7 +9,7 @@ struct Queue *new_node(struct PCB *p) {
 
 void rr(struct PCB *ps, int N) {
     struct Queue *head = NULL, *tail = NULL;
-    int current = 0, ready = 0, quantum = 500;
+    int finish = 0, ready = 0, quantum = 500;
     for (int time = 0; ; time++) {
 
         /* if time >= process's ready time, set the process's ready state to true */
@@ -70,9 +70,9 @@ void rr(struct PCB *ps, int N) {
                 head = tail = NULL;
             free(tmp);
 
-            current += 1;
+            finish += 1;
 
-            if (current == N)
+            if (finish == N)
                 return;
         }
     }

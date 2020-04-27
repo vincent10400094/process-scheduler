@@ -43,7 +43,7 @@ int main() {
     } else if (S == RR) {
         rr(ps, N);
     } else if (S == SJF) {
-
+        sjf(ps, N);
     } else if (S == PSJF) {
 
     }

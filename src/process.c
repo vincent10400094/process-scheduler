@@ -51,24 +51,23 @@ void setPriority(pid_t pid, int p) {
 
 void forkChild(struct PCB *p) {
 
-    pid_t pid = fork();
+    p->pid = fork();
 
     /* error */
-    if (pid == -1) {
+    if (p->pid == -1) {
         fprintf(stderr, "Error: fail to fork, %s\n", strerror(errno));
         exit(1);
     }
     
     /* child */
-    if (pid == 0) {
+    if (p->pid == 0) {
         for (int i = 0; i < p->t; i++)
             UNIT_OF_TIME
         exit(0);
     }
 
     /* parent */
-    setCPU(pid, 1);
-    setPriority(pid, 1); // lowest priority
-    p->pid = pid;
+    setCPU(p->pid, 1);
+    setPriority(p->pid, 1); // lowest priority
 
 }
