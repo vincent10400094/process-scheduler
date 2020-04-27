@@ -4,20 +4,6 @@ void fifo(struct PCB *ps, int N) {
     int current = 0, ready = 0;
     for (int time = 0; ; time++) {
 
-        /* a job is finished */
-        if (ps[current].running && ps[current].t == 0) {
-            
-            wait(NULL);
-
-            /* all jobs are finished */
-            if (current == N-1) {
-                return;
-            }
-
-            /* do next job */
-            current += 1;
-        }
-
         /* if time >= process's ready time, set the process's ready state to true */
         for (; ready < N && time >= ps[ready].r; ready++) {
             forkChild(&ps[ready]);
@@ -35,6 +21,20 @@ void fifo(struct PCB *ps, int N) {
 
         if (ps[current].running && ps[current].t > 0) {
             ps[current].t -= 1;
+        }
+
+        /* a job is finished */
+        if (ps[current].running && ps[current].t == 0) {
+            
+            wait(NULL);
+
+            /* all jobs are finished */
+            if (current == N-1) {
+                return;
+            }
+
+            /* do next job */
+            current += 1;
         }
 
     }

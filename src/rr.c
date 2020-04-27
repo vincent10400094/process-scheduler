@@ -9,24 +9,8 @@ struct Queue *new_node(struct PCB *p) {
 
 void rr(struct PCB *ps, int N) {
     struct Queue *head = NULL, *tail = NULL;
-    int ready = 0, quantum = 500;
+    int current = 0, ready = 0, quantum = 500;
     for (int time = 0; ; time++) {
-
-        /* a job is finished */
-        if (head && head->p->t == 0) {
-
-            wait(NULL);
-
-            struct Queue *tmp = head;
-            if (head->next)
-                head = head->next;
-            else
-                head = tail = NULL;
-
-            free(tmp);
-            if (ready == N && !head)
-                return;
-        }
 
         /* if time >= process's ready time, set the process's ready state to true */
         for (; ready < N && time >= ps[ready].r; ready++) {
@@ -34,7 +18,7 @@ void rr(struct PCB *ps, int N) {
             ps[ready].ready = true;
             ps[ready].running = false;
 
-            fprintf(stderr, "%s ready\n", ps[ready].name);
+            // fprintf(stderr, "%s ready\n", ps[ready].name);
 
             if (head == NULL) {
                 head = tail = new_node(&ps[ready]);
@@ -45,7 +29,7 @@ void rr(struct PCB *ps, int N) {
         }
 
         /* quantum expired, switch to next job */
-        if (head && quantum == 0) {
+        if (head && head->p->running && quantum == 0) {
             setPriority(head->p->pid, 1);
             head->p->running = false;
             quantum = 500;              // reset time quantum
@@ -56,20 +40,40 @@ void rr(struct PCB *ps, int N) {
                 tail = tail->next;
                 tail->next = NULL;
             }
-            fprintf(stderr, "switch to %s\n", head->p->name);
         }
 
         if (head && !head->p->running) {
             setPriority(head->p->pid, 99);
             head->p->running = true;
+            quantum = 500;
+            // fprintf(stderr, "switch to %s\n", head->p->name);
         }
 
         UNIT_OF_TIME
 
         /* there is a job running */
-        if (head) {
+        if (head && head->p->running) {
             quantum -= 1;
             head->p->t -= 1;
+        }
+
+        /* a job is finished */
+        if (head && head->p->t == 0) {
+
+            wait(NULL);
+
+            // fprintf(stderr, "%s finish\n", head->p->name);
+            struct Queue *tmp = head;
+            if (head->next)
+                head = head->next;
+            else
+                head = tail = NULL;
+            free(tmp);
+
+            current += 1;
+
+            if (current == N)
+                return;
         }
     }
 }

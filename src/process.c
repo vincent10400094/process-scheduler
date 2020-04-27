@@ -14,6 +14,16 @@ int cmp(const void *_a, const void *_b) {
     return 0;
 }
 
+int cmp_i(const void *_a, const void *_b) {
+    struct PCB *a = (struct PCB *) _a;
+    struct PCB *b = (struct PCB *) _b;
+    if (a->i < b->i)
+        return -1;
+    if (a->i > b->i)
+        return 1;
+    return 0;
+}
+
 void setCPU(pid_t pid, int i) {
 
     cpu_set_t mask;
@@ -60,7 +70,5 @@ void forkChild(struct PCB *p) {
     setCPU(pid, 1);
     setPriority(pid, 1); // lowest priority
     p->pid = pid;
-    
-    printf("%s %d\n", p->name, p->pid);
 
 }

@@ -48,6 +48,9 @@ int main() {
 
     }
 
+    qsort(ps, N, sizeof(struct PCB), cmp_i);
+    for (int i = 0; i < N; i++)
+        printf("%s %d\n", ps[i].name, ps[i].pid);
     fflush(stdout);
 
     return 0;
