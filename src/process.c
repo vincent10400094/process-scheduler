@@ -7,20 +7,6 @@ int cmp(const void *_a, const void *_b) {
         return -1;
     if (a->r > b->r)
         return 1;
-    if (a->i < b->i)
-        return -1;
-    if (a->i > b->i)
-        return 1;
-    return 0;
-}
-
-int cmp_i(const void *_a, const void *_b) {
-    struct PCB *a = (struct PCB *) _a;
-    struct PCB *b = (struct PCB *) _b;
-    if (a->i < b->i)
-        return -1;
-    if (a->i > b->i)
-        return 1;
     return 0;
 }
 
@@ -63,6 +49,7 @@ void forkChild(struct PCB *p) {
     if (p->pid == 0) {
         for (int i = 0; i < p->t; i++)
             UNIT_OF_TIME
+        printf("%s %d\n", p->name, getpid());
         exit(0);
     }
 

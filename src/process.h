@@ -25,7 +25,6 @@ struct PCB {
 #define UNIT_OF_TIME { volatile unsigned long i; for(i=0;i<1000000UL;i++); } 
 
 int cmp(const void *a, const void *b);
-int cmp_i(const void *_a, const void *_b);
 
 void setCPU(pid_t pid, int i);
 void setPriority(pid_t pid, int p);
