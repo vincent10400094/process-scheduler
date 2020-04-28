@@ -27,7 +27,7 @@ int main() {
     for (int i = 0; i < N; i++) {
         scanf("%s %d %d", ps[i].name, &ps[i].r, &ps[i].t);
         ps[i].i = i;
-        ps[i].ready = ps[i].running = false;
+        ps[i].ready = ps[i].running = ps[i].isstart = false;
     }
 
     /* sort processes by ready time */
@@ -47,8 +47,6 @@ int main() {
     } else if (S == PSJF) {
         psjf(ps, N);
     }
-
-    fflush(stdout);
 
     return 0;
 }

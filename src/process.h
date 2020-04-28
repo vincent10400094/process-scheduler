@@ -18,8 +18,9 @@ struct PCB {
     int r;              // ready time
     int t;              // execute time
     int i;              // i-th process
-    bool ready, running;
+    bool ready, running, isstart;
     pid_t pid;
+    struct timespec start, end;
 };
 
 #define UNIT_OF_TIME { volatile unsigned long i; for(i=0;i<1000000UL;i++); } 

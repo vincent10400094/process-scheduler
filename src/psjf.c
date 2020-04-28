@@ -29,6 +29,10 @@ void psjf(struct PCB *ps, int N) {
         if (!now && h.size > 0) {
             now = pop(&h);
             // fprintf(stderr, "start running %s\n", now->name);
+            if (!now->isstart) {
+                syscall(333, &now->start);
+                now->isstart = true;
+            }
             setPriority(now->pid, 99);
             now->running = true;
         }
@@ -42,6 +46,11 @@ void psjf(struct PCB *ps, int N) {
         /* a job is finished */
         if (now && now->t == 0) {
             
+            syscall(333, &now->end);
+            syscall(334, now->pid, now->start.tv_sec, now->start.tv_nsec, now->end.tv_sec, now->end.tv_nsec);
+            printf("%s %d\n", now->name, now->pid);
+            fflush(stdout);
+
             wait(NULL);
             // fprintf(stderr, "%s finish\n", now->name);
             finish += 1;

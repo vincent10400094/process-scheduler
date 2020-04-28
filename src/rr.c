@@ -43,6 +43,10 @@ void rr(struct PCB *ps, int N) {
         }
 
         if (head && !head->p->running) {
+            if (!head->p->isstart) {
+                syscall(333, &head->p->start);
+                head->p->isstart = true;
+            }
             setPriority(head->p->pid, 99);
             head->p->running = true;
             quantum = 500;
@@ -60,6 +64,10 @@ void rr(struct PCB *ps, int N) {
         /* a job is finished */
         if (head && head->p->t == 0) {
 
+            syscall(333, &head->p->end);
+            syscall(334, head->p->pid, head->p->start.tv_sec, head->p->start.tv_nsec, head->p->end.tv_sec, head->p->end.tv_nsec);
+            printf("%s %d\n", head->p->name, head->p->pid);
+            fflush(stdout);
             wait(NULL);
 
             // fprintf(stderr, "%s finish\n", head->p->name);

@@ -13,6 +13,7 @@ void fifo(struct PCB *ps, int N) {
 
         /* set the running job with highest priority */
         if (ps[current].ready && !ps[current].running) {
+            syscall(333, &ps[current].start);
             setPriority(ps[current].pid, 99);
             ps[current].running = true;
         }
@@ -26,6 +27,10 @@ void fifo(struct PCB *ps, int N) {
         /* a job is finished */
         if (ps[current].running && ps[current].t == 0) {
             
+            syscall(333, &ps[current].end);
+            syscall(334, ps[current].pid, ps[current].start.tv_sec, ps[current].start.tv_nsec, ps[current].end.tv_sec, ps[current].end.tv_nsec);
+            printf("%s %d\n", ps[current].name, ps[current].pid);
+            fflush(stdout);
             wait(NULL);
 
             /* all jobs are finished */

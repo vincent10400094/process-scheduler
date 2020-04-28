@@ -49,7 +49,6 @@ void forkChild(struct PCB *p) {
     if (p->pid == 0) {
         for (int i = 0; i < p->t; i++)
             UNIT_OF_TIME
-        printf("%s %d\n", p->name, getpid());
         exit(0);
     }
 
