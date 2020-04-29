@@ -22,4 +22,4 @@ scheduler: scheduler.c process.o heap.o fifo.o rr.o sjf.o psjf.o
 	gcc scheduler.c process.o heap.o fifo.o rr.o sjf.o psjf.o -o scheduler
 
 clean:
-	rm process.o fifo.o rr.o sjf.o psjf.o
+	rm process.o fifo.o rr.o sjf.o psjf.o heap.o
