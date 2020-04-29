@@ -31,6 +31,7 @@ void fifo(struct PCB *ps, int N) {
             syscall(334, ps[current].pid, ps[current].start.tv_sec, ps[current].start.tv_nsec, ps[current].end.tv_sec, ps[current].end.tv_nsec);
             printf("%s %d\n", ps[current].name, ps[current].pid);
             fflush(stdout);
+            
             wait(NULL);
 
             /* all jobs are finished */

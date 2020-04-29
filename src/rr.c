@@ -68,6 +68,7 @@ void rr(struct PCB *ps, int N) {
             syscall(334, head->p->pid, head->p->start.tv_sec, head->p->start.tv_nsec, head->p->end.tv_sec, head->p->end.tv_nsec);
             printf("%s %d\n", head->p->name, head->p->pid);
             fflush(stdout);
+            
             wait(NULL);
 
             // fprintf(stderr, "%s finish\n", head->p->name);

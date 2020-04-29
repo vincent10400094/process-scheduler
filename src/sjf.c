@@ -36,6 +36,7 @@ void sjf(struct PCB *ps, int N) {
             syscall(334, now->pid, now->start.tv_sec, now->start.tv_nsec, now->end.tv_sec, now->end.tv_nsec);
             printf("%s %d\n", now->name, now->pid);
             fflush(stdout);
+            
             wait(NULL);
             // fprintf(stderr, "%s finish\n", now->name);
             finish += 1;

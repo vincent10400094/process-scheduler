@@ -3,7 +3,7 @@
 
 #include "process.h"
 
-#define MAX_N 1024
+#define MAX_N 32
 
 struct Heap {
     int size;

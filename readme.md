@@ -11,5 +11,5 @@ $ make
 ## Execute
 
 ```bash
-sudo ./scheduler
+$ sudo ./scheduler
 ```
